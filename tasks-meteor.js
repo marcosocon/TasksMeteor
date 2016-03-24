@@ -11,7 +11,7 @@ if (Meteor.isClient) {
     'submit .new-task': function(event){
       var title = event.target.title.value;
       if (title.length > 0) {
-        Resolutions.insert({
+        Tasks.insert({
           title:title,
            createdAt: new Date()
          });
