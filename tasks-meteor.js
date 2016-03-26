@@ -7,6 +7,12 @@ if (Meteor.isClient) {
     }
   })
 
+  Template.task.events({
+    "click .delete":function(){
+      Tasks.remove(this._id);
+    }
+  })
+
   Template.body.events({
     'submit .new-task': function(event){
       var title = event.target.title.value;
