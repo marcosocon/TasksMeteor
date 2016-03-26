@@ -18,5 +18,7 @@
 </body>
 
 <template name="task">
-  <li><strong>{{title}}</strong>  -  {{createdAt}} <button class="delete">Remove</button></li>
+  <li class="{{#if checked}} checked {{/if}}">
+  <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+  <strong>{{title}}</strong>  -  {{createdAt}} <button class="delete">Remove</button></li>
 </template>
