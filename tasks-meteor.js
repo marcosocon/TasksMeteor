@@ -3,9 +3,14 @@ Tasks = new Mongo.Collection('tasks');
 if (Meteor.isClient) {
   Template.body.helpers({
     tasks:function(){
+      if (Session.get('hideFinished')) {
+        return Tasks.find( { checked: { $ne: true } } );
+      }
+      else{
       return Tasks.find();
+      }
     }
-  })
+  });
 
   Template.task.events({
     "click .toggle-checked":function(){
@@ -30,6 +35,9 @@ if (Meteor.isClient) {
       }
         event.target.title.value = '';
         return false
+    },
+    'change .hide-finished':function(event){
+      Session.set('hideFinished', event.target.checked);
     }
   });
 }
