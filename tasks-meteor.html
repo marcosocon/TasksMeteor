@@ -4,6 +4,7 @@
 
 <body>
   <div class="container">
+      {{>loginButtons}}
     <header>
       <h1>Tasks - MeteorJS</h1>
       <label class="hide-finished">
@@ -11,10 +12,12 @@
         Hide finish tasks
       </label>
     </header>
+    {{#if currentUser}}
     <form class="new-task">
       <input type="text" name="title" placeholder="Type your task!"/>
       <input type="submit" value="Submit!"/>
     </form>
+    {{/if}}
   {{#each tasks}}
     {{>task}}
   {{/each}}

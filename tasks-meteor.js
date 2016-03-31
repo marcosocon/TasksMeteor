@@ -9,6 +9,9 @@ if (Meteor.isClient) {
       else{
       return Tasks.find();
       }
+    },
+    hideFinished:function(){
+      return Session.get('hideFinished');
     }
   });
 
@@ -39,6 +42,10 @@ if (Meteor.isClient) {
     'change .hide-finished':function(event){
       Session.set('hideFinished', event.target.checked);
     }
+  });
+
+  Accounts.ui.config({
+    passwordSignupFields : "USERNAME_ONLY"
   });
 }
 
