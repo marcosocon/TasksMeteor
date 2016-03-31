@@ -17,10 +17,10 @@ if (Meteor.isClient) {
 
   Template.task.events({
     "click .toggle-checked":function(){
-      Tasks.update(this._id, {$set:{checked: !this.checked}});
+      Meteor.call("updateTask", this._id, !this.checked);
     },
     "click .delete":function(){
-      Tasks.remove(this._id);
+      Meteor.call("deleteTask", this._id);
     },
   })
 
@@ -28,10 +28,8 @@ if (Meteor.isClient) {
     'submit .new-task': function(event){
       var title = event.target.title.value;
       if (title.length > 0) {
-        Tasks.insert({
-          title:title,
-           createdAt: new Date()
-         });
+        Meteor.call("addTask", title);
+
       }
       else{
         alert("Ingresa texto!");
@@ -54,3 +52,23 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+//Secure meteor methods.
+Meteor.methods({
+  addTask: function(title){
+    Tasks.insert({
+      title:title,
+      createdAt: new Date()
+      });
+  },
+  deleteTask: function(id){
+    Tasks.remove(id);
+
+  },
+  updateTask: function(id, checked){
+    Tasks.update(id, {
+      $set:{
+        checked: checked
+      }
+    });
+  }
+});
